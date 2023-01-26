@@ -53,7 +53,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 	// UNITS ARE METERS
 	double tagsize = 0.166;
 
-	int[] tagsOfInterest = {11, 9, 2}; // Tag ID 18 from the 36h11 family
+	int[] ID_TAG_OF_INTEREST = {11, 9, 2}; // Tag ID 18 from the 36h11 family
 
 	AprilTagDetection tagOfInterest = null;
 
@@ -86,43 +86,29 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 		 * The INIT-loop:
 		 * This REPLACES waitForStart!
 		 */
+		boolean tagFound[] = {false, false, false};
 		while (!isStarted() && !isStopRequested())
 		{
 			ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
 
 			if(currentDetections.size() != 0)
 			{
-				boolean tagFound[] = {false, false, false};
-
 				for(AprilTagDetection tag : currentDetections)
 				{
-					for (int i = 0; i <= tagsOfInterest.length; i++) {
-						if (tag.id == tagsOfInterest[i]) {
+					for(int i = 0; i <= ID_TAG_OF_INTEREST.length; i++){
+						if(tag.id == ID_TAG_OF_INTEREST[i])
+						{
+							tagOfInterest = tag;
 							tagFound[i] = true;
 							break;
 						}
 					}
 				}
-					for (int i = 0; i < tagsofInterest.length -1; i++){
-						if(tagFound[i] == true){
-							telemetry.addLine("Tag of interest is in sight!\n\nLocation data:");
-							tagToTelemetry(tagOfInterest[i]);
-						}else
-				{
-						telemetry.addLine("Don't see tag of interest :(");
 
-					if(tagOfInterest == null)
-					{
-						telemetry.addLine("(The tag has never been seen)");
-					}
-					else
-					{
-						telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
-						tagToTelemetry(tagOfInterest);
-					}
-				}
-					}
+				if(tagFound[0] || tagFound[1] || tagFound[2])
 				{
+					telemetry.addLine("Tag of interest is in sight!\n\nLocation data:");
+					tagToTelemetry(tagOfInterest);
 				}
 				else
 				{
@@ -181,27 +167,24 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 		/* Actually do something useful */
 		if(tagOfInterest == null)
 		{
-			/*
-			 * Insert your autonomous code here, presumably running some default configuration
-			 * since the tag was never sighted during INIT
-			 */
+			/* Move claw to open position*/
+			Items.clawOpen();
+			
 		}
 		else
 		{
 			/*
 			 * Insert your autonomous code here, probably using the tag pose to decide your configuration.
 			 */
-
-			// e.g.
-			if(tagOfInterest.pose.x <= 20)
+			if(tagFound[0] /* 11 */)
 			{
-				// do something
+				Items.moveFoward(2.0);
 			}
-			else if(tagOfInterest.pose.x >= 20 && tagOfInterest.pose.x <= 50)
+			else if(tagFound[1] /* 9 */)
 			{
 				// do something else
 			}
-			else if(tagOfInterest.pose.x >= 50)
+			else if(tagFound[2] /* 2 */)
 			{
 				// do something else
 			}

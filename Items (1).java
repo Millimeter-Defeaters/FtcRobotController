@@ -7,7 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Blinker;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class Items {
-	
+	static private Servo finger0;
+	static private Servo finger1;
 	static DcMotorEx frontLeftMotor;
 	static DcMotorEx frontRightMotor;
 	static DcMotorEx backLeftMotor;
@@ -36,9 +37,13 @@ public class Items {
 	public static void liftMove(double position){
 		liftMotor.setTargetPosition((int)Math.ceil(position));
 		liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-		liftMotor.setVelocity(500.0);
+		liftMotor.setVelocity(800.0);
 	}
 	
+	public static void clawOpen(){
+		finger0.setPosition(0.75);
+		finger1.setPosition(0.25);
+	}
 	 public static void moveFoward(double position){
 	 	frontLeftMotor.setTargetPosition(((int)Math.ceil(position)));
 		frontRightMotor.setTargetPosition((int)Math.ceil(position));
@@ -51,7 +56,7 @@ public class Items {
 		backRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		
 		frontLeftMotor.setVelocity(100.0);
-		frontRightMotor.setVelocity(100.0);
+		frontRightMotor.setVelocity(00.0);
 		backLeftMotor.setVelocity(100.0);
 		backRightMotor.setVelocity(100.0);
 		
