@@ -1,3 +1,7 @@
+/*
+ * Controls the drive train of the robot.
+ */
+
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import java.util.Arrays;

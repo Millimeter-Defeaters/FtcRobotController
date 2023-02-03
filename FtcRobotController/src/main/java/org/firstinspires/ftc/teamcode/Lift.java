@@ -1,3 +1,7 @@
+/*
+ * Controls the 4-stage viper lift of the robot.
+ */
+
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -23,7 +27,7 @@ public class Lift {
     private final double HIGH = -23.5 * Items.ticksPerInchLift;
     
     public Lift() {
-        liftMotor = hardwareMap.get(DcMotorEx.class, "lift");
+        this.liftMotor = hardwareMap.get(DcMotorEx.class, "lift");
 
         telemetry.addData("Status", "Lift Motor Initialized");
         telemetry.update();
@@ -32,14 +36,20 @@ public class Lift {
     public void liftMove(double position) {
         /* Move the lift to the specified position. */
 
-        liftMotor.setTargetPosition((int)Math.ceil(position));
-		liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-		liftMotor.setVelocity(800.0);    
+        this.liftMotor.setTargetPosition((int)Math.ceil(position));
+		this.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+		this.liftMotor.setVelocity(800.0);    
     }
 
     public void liftStop() {
         /* Stop the lift. */
 
-        liftMotor.setVelocity(0.0);
+        this.liftMotor.setVelocity(0.0);
+    }
+
+    public void getLiftPosition() {
+        /* Get the current position of the lift. */
+
+        return this.liftMotor.getCurrentPosition();
     }
 }
