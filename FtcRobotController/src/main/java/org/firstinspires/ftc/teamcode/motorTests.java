@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
 
-public class Drive extends LinearOpMode {
+public class motorTests extends LinearOpMode {
     public Blinker control_Hub;
     public Servo finger0;
     private Servo finger1;
