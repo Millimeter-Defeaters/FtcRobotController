@@ -14,7 +14,7 @@ public class Lift {
     private final double GEAR_REDUCTION = 1.0; 
 
     private final double LIFT_DIAMETER = 1.404; // From https://www.gobilda.com/3407-series-hub-mount-winch-pulley-dual-spool-112mm-circumference/. Comvert 112 mm diameter to diameter in inches.
-	private final double TICKS_PER_INCH_LIFT =  (ticksPerRotation * gearReduction) / (liftDiameter * Math.PI);
+	private final double TICKS_PER_INCH_LIFT =  (TICKS_PER_ROTATION * GEAR_REDUCTION) / (LIFT_DIAMETER * Math.PI);
     
     // Position constants
     private final double RESET = -0.7 * TICKS_PER_INCH_LIFT;  
