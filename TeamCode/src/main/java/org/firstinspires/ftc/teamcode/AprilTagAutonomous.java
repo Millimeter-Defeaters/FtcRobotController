@@ -178,14 +178,19 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode {
         /* Insert your autonomous code here, probably using the tag pose to decide your configuration.
         */
 
-        double ticksTravel;
+        double ticksTravel = driveTrain.calculateTicks(TITLE_SQUARE_LENGTH + OVERESTIMATE);
+
         if (tagFound[0] /* 11 */ ) {
             telemetry.addLine("i found 11 :)");
             telemetry.update();
 
             // I 50/50 GUESSED. IM BANKING THAT THIS IS LEFT.
-            ticksTravel = driveTrain.calculateTicks(TITLE_DIAGONAL_LENGTH + OVERESTIMATE);
-            driveTrain.driveTicks(true, false, false, true, ticksTravel);
+
+            // Travel forward 1 tile
+            driveTrain.driveFowardTicks(ticksTravel);
+
+            // Travel left 1 tile
+            driveTrain.driveLeftTicks(ticksTravel);
         }  
         
         else if (tagFound[1] /* 9 */ ) {
@@ -193,9 +198,12 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode {
             telemetry.update();
 
             // I 50/50 GUESSED. IM BANKING THAT THIS IS RIGHT.
-            ticksTravel = driveTrain.calculateTicks(TITLE_DIAGONAL_LENGTH + OVERESTIMATE);
-            driveTrain.driveTicks(false, true, true, false, ticksTravel);
+            
+            // Travel forward 1 tile
+            driveTrain.driveFowardTicks(ticksTravel);
 
+            // Travel right 1 tile
+            driveTrain.driveRightTicks(ticksTravel);
         } 
         
         else if (tagFound[2] /* 2 */ ) {
@@ -203,8 +211,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode {
             telemetry.update();
 
             //  Center
-            ticksTravel = driveTrain.calculateTicks(TILE_SQUARE_LENGTH + OVERESTIMATE);
-            driveTrain.driveTicks(true, true, true, true, ticksTravel);
+            driveTrain.driveFowardTicks(ticksTravel);
         }
 
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */

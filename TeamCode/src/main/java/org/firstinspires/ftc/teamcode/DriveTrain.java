@@ -72,9 +72,9 @@ public class DriveTrain {
         return (int) Math.ceil(distance * ticksPerInch);
     }
 
-    public void driveTicks(boolean flMotor, boolean frMotor, boolean blMotor, boolean brMotor, int ticks) {
+    public void driveForwardTicks(int ticks) {
         /* 
-         * Drive the robot for the given number of ticks.
+         * Drive forward for the given number of ticks.
          * Use this for autonomous.
          */
     
@@ -84,29 +84,44 @@ public class DriveTrain {
         this.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         
-        if (flMotor) {
-            this.frontLeftDrive.setTargetPosition(ticks);
-            this.frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-
-        if (frMotor) {
-            this.frontRightDrive.setTargetPosition(ticks);
-            this.frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-
-        if (blMotor) {
-            this.backLeftDrive.setTargetPosition(ticks);
-            this.backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
-
-        if (brMotor) {
-            this.backRightDrive.setTargetPosition(ticks);
-            this.backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        }
+        this.frontLeftDrive.setTargetPosition(ticks);
+        this.frontRightDrive.setTargetPosition(ticks);
 
         // Set motor powers
-        leftMotor.setPower(0.25);
-        rightMotor.setPower(0.25);
+        this.frontLeftDrive.setPower(0.25);
+        this.rightMotor.setPower(0.25);
+
+        // Wait for motors to finish
+        while (this.frontLeftDrive.isBusy() && this.frontRightDrive.isBusy()) {
+            // Halt the program until the motors finish
+        }
+
+        // Stop motors
+        this.stop();
+    }
+
+    public void driveLeftTicks(int ticks) {
+        /* 
+         * Drive left for the given number of ticks.
+         * Use this for autonomous.
+         */
+    
+        // Set motors to run with encoders
+        this.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        
+        this.frontLeftDrive.setTargetPosition(-ticks);
+        this.frontRightDrive.setTargetPosition(ticks);
+        this.backLeftDrive.setTargetPosition(ticks);
+        this.backRightDrive.setTargetPosition(-ticks);
+
+        // Set motor powers
+        this.frontLeftDrive.setPower(0.25);
+        this.frontRightDrive.setPower(0.25);
+        this.backLeftDrive.setPower(0.25);
+        this.backRightDrive.setPower(0.25);
 
         // Wait for motors to finish
         while (this.frontLeftDrive.isBusy() && this.frontRightDrive.isBusy() && this.backLeftDrive.isBusy() && this.backRightDrive.isBusy()) {
@@ -116,6 +131,39 @@ public class DriveTrain {
         // Stop motors
         this.stop();
     }
+
+    public void driveRightTicks(int ticks) {
+        /* 
+         * Drive right for the given number of ticks.
+         * Use this for autonomous.
+         */
+    
+        // Set motors to run with encoders
+        this.frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        
+        this.frontLeftDrive.setTargetPosition(ticks);
+        this.frontRightDrive.setTargetPosition(-ticks);
+        this.backLeftDrive.setTargetPosition(-ticks);
+        this.backRightDrive.setTargetPosition(ticks);
+
+        // Set motor powers
+        this.frontLeftDrive.setPower(0.25);
+        this.frontRightDrive.setPower(0.25);
+        this.backLeftDrive.setPower(0.25);
+        this.backRightDrive.setPower(0.25);
+
+        // Wait for motors to finish
+        while (this.frontLeftDrive.isBusy() && this.frontRightDrive.isBusy() && this.backLeftDrive.isBusy() && this.backRightDrive.isBusy()) {
+            // Halt the program until the motors finish
+        }
+
+        // Stop motors
+        this.stop();
+    }
+
 
     public void drivePower(double twist, double forward, double strafe) {
         /* 
