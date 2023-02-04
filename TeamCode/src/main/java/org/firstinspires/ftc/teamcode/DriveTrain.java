@@ -19,7 +19,7 @@ public class DriveTrain {
 	private final double wheelDiameter = 3.77953;
 	private final double ticksPerInch = (ticksPerRotation * gearReduction) / (wheelDiameter * Math.PI);
 
-    public DriveTrain() {
+    public DriveTrain(HardwareMap hardwareMap) {
         frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
         backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");

@@ -10,7 +10,7 @@ public class Wrist {
     private final double WRIST_FRONT = 0.04;
     private final double WRIST_BACK = 0.72;
 
-    public Wrist() {
+    public Wrist(HardwareMap hardwareMap) {
         this.wrist = hardwareMap.get(Servo.class, "wrist");
         
         this.setPosition(WRIST_DEFAULT);

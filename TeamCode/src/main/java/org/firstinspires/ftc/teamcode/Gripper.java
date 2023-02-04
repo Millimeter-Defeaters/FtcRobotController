@@ -16,7 +16,7 @@ public class Gripper {
 
     private boolean isClosed;
 
-    public Gripper() {
+    public Gripper(HardwareMap hardwareMap) {
         this.finger0 = hardwareMap.get(Servo.class, "finger0");
         this.finger1 = hardwareMap.get(Servo.class, "finger1");
         

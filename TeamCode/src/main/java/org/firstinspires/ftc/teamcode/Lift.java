@@ -23,7 +23,7 @@ public class Lift {
     private final double MID = -23.5 * ticksPerInchLift;
     private final double HIGH = -38.5 * ticksPerInchLift;
     
-    public Lift() {
+    public Lift(HardwareMap hardwareMap) {
         this.liftMotor = hardwareMap.get(DcMotorEx.class, "lift");
     }
 
