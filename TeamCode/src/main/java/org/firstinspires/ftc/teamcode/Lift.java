@@ -5,6 +5,7 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Lift {
     private DcMotorEx liftMotor;
@@ -17,11 +18,11 @@ public class Lift {
 	private final double TICKS_PER_INCH_LIFT =  (TICKS_PER_ROTATION * GEAR_REDUCTION) / (LIFT_DIAMETER * Math.PI);
     
     // Position constants
-    private final double RESET = -0.7 * TICKS_PER_INCH_LIFT;  
-    private final double GROUND = -5.0 * TICKS_PER_INCH_LIFT;
-    private final double LOW = -13.5 * TICKS_PER_INCH_LIFT;
-    private final double MID = -23.5 * TICKS_PER_INCH_LIFT;
-    private final double HIGH = -38.5 * TICKS_PER_INCH_LIFT;
+    public final double RESET = 4.3 * TICKS_PER_INCH_LIFT;  
+    public final double GROUND = -5.0 * TICKS_PER_INCH_LIFT;
+    public final double LOW = -13.5 * TICKS_PER_INCH_LIFT;
+    public final double MID = -23.5 * TICKS_PER_INCH_LIFT;
+    public final double HIGH = -38.5 * TICKS_PER_INCH_LIFT;
     
     public Lift(HardwareMap hardwareMap) {
         this.liftMotor = hardwareMap.get(DcMotorEx.class, "lift");

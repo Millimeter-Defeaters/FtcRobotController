@@ -3,6 +3,7 @@
  */
 
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Wrist {
     private Servo wrist;

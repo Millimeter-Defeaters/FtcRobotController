@@ -4,6 +4,7 @@
 
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.Arrays;
 import java.util.DoubleSummaryStatistics;
 
@@ -20,20 +21,20 @@ public class DriveTrain {
 	private final double TICKS_PER_INCH = (TICKS_PER_ROTATION * GEAR_REDUCTION) / (WHEEL_DIAMETER * Math.PI);
 
     public DriveTrain(HardwareMap hardwareMap) {
-        frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
-        backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
-        backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
+        this.frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
+        this.frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
+        this.backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
+        this.backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
 
-        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        this.frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        this.backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        this.frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        this.backRightDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        frontLeftDrive.setPower(0);
-        frontRightDrive.setPower(0);
-        backLeftDrive.setPower(0);
-        backRightDrive.setPower(0);
+        this.frontLeftDrive.setPower(0);
+        this.frontRightDrive.setPower(0);
+        this.backLeftDrive.setPower(0);
+        this.backRightDrive.setPower(0);
     }
 
     public double[] normalizeInputs(double twist, double forward, double strafe) {
