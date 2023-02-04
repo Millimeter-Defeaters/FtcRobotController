@@ -41,6 +41,18 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 
 	static final double FEET_PER_METER = 3.28084;
 
+	static final double TILE_SQUARE_LENGTH = 23.5;
+    static final double TITLE_DIAGONAL_LENGTH = Math.sqrt(2 * TILE_SQUARE_LENGTH * TILE_SQUARE_LENGTH);
+    static final double OVERESTIMATE = 0.5; // TODO: Tune this value
+
+	// motors
+
+	private DcMotor frontLeftDrive;
+	private DcMotor frontRightDrive;
+	private DcMotor backLeftDrive;
+	private DcMotor backRightDrive;
+
+
 	// Lens intrinsics
 	// UNITS ARE PIXELS
 	// NOTE: this calibration is for the C920 webcam at 800x448.
@@ -60,6 +72,16 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 	@Override
 	public void runOpMode()
 	{
+		frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
+		frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
+		backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
+		backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
+
+		frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+		backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+		frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
+		backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+
 		int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 		camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 		aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
@@ -176,17 +198,89 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 			/*
 			 * Insert your autonomous code here, probably using the tag pose to decide your configuration.
 			 */
+			double ticksTravel = driveTrain.calculateTicks(TILE_SQUARE_LENGTH + OVERESTIMATE);
+
 			if(tagFound[0] /* 11 */)
 			{
-				Items.moveFoward(2.0);
+				// Move right
+				// Set motors to run with encoders
+				frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				
+				frontLeftDrive.setTargetPosition(ticksTravel);
+				frontRightDrive.setTargetPosition(-ticksTravel);
+				backLeftDrive.setTargetPosition(-ticksTravel);
+				backRightDrive.setTargetPosition(ticksTravel);
+		
+				// Set motor powers
+				frontLeftDrive.setPower(0.25);
+				frontRightDrive.setPower(0.25);
+				backLeftDrive.setPower(0.25);
+				backRightDrive.setPower(0.25);
+
+				// Wait for motors to finish
+				while (frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy()) {
+					// Halt the program until the motors finish
+				}
+		
+				// Stop motors
+				stop();
 			}
 			else if(tagFound[1] /* 9 */)
 			{
-				// do something else
+				// Move left
+
+				// Set motors to run with encoders
+				frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				
+				frontLeftDrive.setTargetPosition(ticks);
+				frontRightDrive.setTargetPosition(ticks);
+		
+				// Set motor powers
+				frontLeftDrive.setPower(0.25);
+				frontRightDrive.setPower(0.25);
+				backLeftDrive.setPower(0.25);
+				backRightDrive.setPower(0.25);
+		
+				// Wait for motors to finish
+				while (this.frontLeftDrive.isBusy() && this.frontRightDrive.isBusy()) {
+					// Halt the program until the motors finish
+				}
+		
+				// Stop motors
+				stop();
 			}
 			else if(tagFound[2] /* 2 */)
 			{
-				// do something else
+				/// Set motors to run with encoders
+				frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+				
+				frontLeftDrive.setTargetPosition(ticks);
+				frontRightDrive.setTargetPosition(ticks);
+				backLeftDrive.setTargetPosition(ticks);
+				backRightDrive.setTargetPosition(ticks);
+		
+				// Set motor powers
+				frontLeftDrive.setPower(0.25);
+				frontRightDrive.setPower(0.25);
+				backLeftDrive.setPower(0.25);
+				backRightDrive.setPower(0.25);
+		
+				// Wait for motors to finish
+				while (frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy()) {
+					// Halt the program until the motors finish
+				}
+		
+				// Stop motors
+				stop();
 			}
 		}
 
