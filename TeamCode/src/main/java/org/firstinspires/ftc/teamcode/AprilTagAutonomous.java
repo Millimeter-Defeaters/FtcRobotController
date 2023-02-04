@@ -98,10 +98,10 @@ public class AprilTagAutonomous extends LinearOpMode {
         * This REPLACES waitForStart!
         */
 
-        driveTrain = new DriveTrain();
-        gripper = new Gripper();
-        lift = new Lift();
-        wrist = new Wrist();
+        driveTrain = new DriveTrain(HardwareMap hardwareMap);
+        gripper = new Gripper(HardwareMap hardwareMap);
+        lift = new Lift(HardwareMap hardwareMap);
+        wrist = new Wrist(HardwareMap hardwareMap);
 
         boolean[] tagFound = {
             false,
