@@ -4,22 +4,17 @@
 
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
 
 public class Teleop extends LinearOpMode {
-    private DriveTrain driveTrain = new DriveTrain();
-    private Gripper gripper = new Gripper();
-    private Lift lift = new Lift();
-    private Wrist wrist = new Wrist();
-    
-    private final double ticksPerRotation = 537.7; // From https://www.gobilda.com/5202-series-yellow-jacket-planetary-gear-motor-19-2-1-ratio-312-rpm-3-3-5v-encoder/
-    private final double gearReduction = 1.0; 
-
-    private final double wheelDiameter = 3.77953; // From https://www.gobilda.com/96mm-mecanum-wheel-set-70a-durometer-bearing-supported-rollers/. Convert 96 mm diameter to diameter in inches.
-	private final double ticksPerInch = (ticksPerRotation * gearReduction) / (wheelDiameter * Math.PI);
+    private DriveTrain driveTrain = new DriveTrain(hardwareMap);
+    private Gripper gripper = new Gripper(hardwareMap);
+    private Lift lift = new Lift(hardwareMap);
+    private Wrist wrist = new Wrist(hardwareMap);
 
     @Override
     public void runOpMode() {

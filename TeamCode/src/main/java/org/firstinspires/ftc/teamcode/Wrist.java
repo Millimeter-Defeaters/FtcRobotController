@@ -13,7 +13,7 @@ public class Wrist {
     public Wrist(HardwareMap hardwareMap) {
         this.wrist = hardwareMap.get(Servo.class, "wrist");
         
-        this.setPosition(WRIST_DEFAULT);
+        this.setPosition(WRIST_FRONT);
     }
 
     public void rotateFront() {

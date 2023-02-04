@@ -13,11 +13,11 @@ public class DriveTrain {
     private DcMotor backLeftDrive;
     private DcMotor backRightDrive;
 
-	private final double ticksPerRotation = 537.7;
-	private final double gearReduction = 1.0;
+	private final double TICKS_PER_ROTATION = 537.7;
+	private final double GEAR_REDUCTION = 1.0;
 	
-	private final double wheelDiameter = 3.77953;
-	private final double ticksPerInch = (ticksPerRotation * gearReduction) / (wheelDiameter * Math.PI);
+	private final double WHEEL_DIAMETER = 3.77953;
+	private final double TICKS_PER_INCH = (TICKS_PER_ROTATION * GEAR_REDUCTION) / (WHEEL_DIAMETER * Math.PI);
 
     public DriveTrain(HardwareMap hardwareMap) {
         frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
@@ -66,7 +66,7 @@ public class DriveTrain {
          * Calculate the number of ticks to drive the robot for the given distance in inches. 
          */
 
-        return (int) Math.ceil(distance * ticksPerInch);
+        return (int) Math.ceil(distance * TICKS_PER_INCH);
     }
 
     public void driveForwardTicks(int ticks) {
