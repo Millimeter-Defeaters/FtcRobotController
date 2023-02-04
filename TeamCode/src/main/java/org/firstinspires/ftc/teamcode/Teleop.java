@@ -32,7 +32,7 @@ public class Teleop extends LinearOpMode {
             double forward = gamepad1.right_trigger - gamepad1.left_trigger;
             double strafe = 0;
 
-            driveTrain.drive(twist, forward, strafe);
+            driveTrain.drivePower(twist, forward, strafe);
 
             /*
              * Gripper controls. Mapping:

@@ -180,7 +180,7 @@ public class AprilTagAutonomous extends LinearOpMode {
 
         double ticksTravel = driveTrain.calculateTicks(TILE_SQUARE_LENGTH + OVERESTIMATE);
 
-        if (tagFound[0] /* 11 */ ) {
+        if (tagFound[0] /* pos 3 */ ) {
             telemetry.addLine("i found 11 :)");
             telemetry.update();
 
@@ -192,7 +192,7 @@ public class AprilTagAutonomous extends LinearOpMode {
 
         }  
         
-        else if (tagFound[1] /* 9 */ ) {
+        else if (tagFound[1] /* pos 1 */ ) {
             telemetry.addLine("i found 9 :)");
             telemetry.update();
             
@@ -203,7 +203,7 @@ public class AprilTagAutonomous extends LinearOpMode {
             driveTrain.driveLeftTicks(ticksTravel);
         } 
         
-        else if (tagFound[2] /* 2 */ ) {
+        else if (tagFound[2] /* pos 2 */ ) {
             telemetry.addLine("i found 2 :)");
             telemetry.update();
 
