@@ -14,26 +14,23 @@ public class Lift {
     private final double gearReduction = 1.0; 
 
     private final double liftDiameter = 1.404; // From https://www.gobilda.com/3407-series-hub-mount-winch-pulley-dual-spool-112mm-circumference/. Comvert 112 mm diameter to diameter in inches.
-	private final double ticksPerInchLift =  (ticksPerRotation * gearReduction) / (lsDiameter * Math.PI);
+	private final double ticksPerInchLift =  (ticksPerRotation * gearReduction) / (liftDiameter * Math.PI);
     
     // Position constants
     private final double RESET = -0.7 * ticksPerInchLift;  
     private final double GROUND = -5.0 * ticksPerInchLift;
-    private final double LOW = -13.5 * Items.ticksPerInchLift;
-    private final double MID = -23.5 * Items.ticksPerInchLift;
-    private final double HIGH = -23.5 * Items.ticksPerInchLift;
+    private final double LOW = -13.5 * ticksPerInchLift;
+    private final double MID = -23.5 * ticksPerInchLift;
+    private final double HIGH = -38.5 * ticksPerInchLift;
     
     public Lift() {
         this.liftMotor = hardwareMap.get(DcMotorEx.class, "lift");
-
-        telemetry.addData("Status", "Lift Motor Initialized");
-        telemetry.update();
     }
 
     public void move(double position) {
         /* Move the lift to the specified position. */
 
-        this.liftMotor.setTargetPosition((int)Math.ceil(position));
+        this.liftMotor.setTargetPosition((int)Math.round(position));
 		this.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 		this.liftMotor.setVelocity(800.0);    
     }
@@ -44,7 +41,7 @@ public class Lift {
         this.liftMotor.setVelocity(0.0);
     }
 
-    public void getLiftPosition() {
+    public double getLiftPosition() {
         /* Get the current position of the lift. */
 
         return this.liftMotor.getCurrentPosition();

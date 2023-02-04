@@ -19,7 +19,7 @@ public class DriveTrain {
 	private final double wheelDiameter = 3.77953;
 	private final double ticksPerInch = (ticksPerRotation * gearReduction) / (wheelDiameter * Math.PI);
 
-    public Drive() {
+    public DriveTrain() {
         frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
         frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
         backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
@@ -34,9 +34,6 @@ public class DriveTrain {
         frontRightDrive.setPower(0);
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
-
-        telemetry.addData("Status", "Drive Motors Initialized");
-        telemetry.update();
     }
 
     public double[] normalizeInputs(double twist, double forward, double strafe) {
@@ -89,7 +86,9 @@ public class DriveTrain {
 
         // Set motor powers
         this.frontLeftDrive.setPower(0.25);
-        this.rightMotor.setPower(0.25);
+        this.frontRightDrive.setPower(0.25);
+        this.backLeftDrive.setPower(0.25);
+        this.backRightDrive.setPower(0.25);
 
         // Wait for motors to finish
         while (this.frontLeftDrive.isBusy() && this.frontRightDrive.isBusy()) {

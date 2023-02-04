@@ -37,7 +37,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import java.util.ArrayList;
 
 @Autonomous
-public class AprilTagAutonomousInitDetectionExample extends LinearOpMode {
+public class AprilTagAutonomous extends LinearOpMode {
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
@@ -50,7 +50,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode {
 
     static final double TILE_SQUARE_LENGTH = 23.5;
     static final double TITLE_DIAGONAL_LENGTH = Math.sqrt(2 * TILE_SQUARE_LENGTH * TILE_SQUARE_LENGTH);
-    static final double OVERESTIMATE = 0.5;
+    static final double OVERESTIMATE = 0.5; // TODO: Tune this value
 
     // Lens intrinsics
     // UNITS ARE PIXELS
@@ -178,39 +178,36 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode {
         /* Insert your autonomous code here, probably using the tag pose to decide your configuration.
         */
 
-        double ticksTravel = driveTrain.calculateTicks(TITLE_SQUARE_LENGTH + OVERESTIMATE);
+        double ticksTravel = driveTrain.calculateTicks(TILE_SQUARE_LENGTH + OVERESTIMATE);
 
         if (tagFound[0] /* 11 */ ) {
             telemetry.addLine("i found 11 :)");
             telemetry.update();
 
-            // I 50/50 GUESSED. IM BANKING THAT THIS IS LEFT.
-
-            // Travel forward 1 tile
-            driveTrain.driveFowardTicks(ticksTravel);
-
-            // Travel left 1 tile
-            driveTrain.driveLeftTicks(ticksTravel);
-        }  
-        
-        else if (tagFound[1] /* 9 */ ) {
-            telemetry.addLine("i found 9 :)");
-            telemetry.update();
-
-            // I 50/50 GUESSED. IM BANKING THAT THIS IS RIGHT.
-            
             // Travel forward 1 tile
             driveTrain.driveFowardTicks(ticksTravel);
 
             // Travel right 1 tile
             driveTrain.driveRightTicks(ticksTravel);
+
+        }  
+        
+        else if (tagFound[1] /* 9 */ ) {
+            telemetry.addLine("i found 9 :)");
+            telemetry.update();
+            
+            // Travel forward 1 tile
+            driveTrain.driveFowardTicks(ticksTravel);
+
+            // Travel left 1 tile
+            driveTrain.driveLeftTicks(ticksTravel);
         } 
         
         else if (tagFound[2] /* 2 */ ) {
             telemetry.addLine("i found 2 :)");
             telemetry.update();
 
-            //  Center
+            // Drive forward 1 tile
             driveTrain.driveFowardTicks(ticksTravel);
         }
 

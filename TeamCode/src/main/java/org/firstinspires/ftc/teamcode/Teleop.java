@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
 
-public class TeleOp extends LinearOpMode {
+public class Teleop extends LinearOpMode {
     private DriveTrain driveTrain = new DriveTrain();
     private Gripper gripper = new Gripper();
     private Lift lift = new Lift();
@@ -54,10 +54,10 @@ public class TeleOp extends LinearOpMode {
              * - Dpad left: Rotate back
              */ 
 
-            if (game1.dpad_right) {
+            if (gamepad1.dpad_right) {
                 wrist.rotateFront();
             }
-            else if (game1.dpad_left) {
+            else if (gamepad1.dpad_left) {
                 wrist.rotateBack();
             }
 

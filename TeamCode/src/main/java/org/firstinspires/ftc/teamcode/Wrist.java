@@ -14,9 +14,6 @@ public class Wrist {
         this.wrist = hardwareMap.get(Servo.class, "wrist");
         
         this.setPosition(WRIST_DEFAULT);
-
-        telemetry.addData("Status", "Wrist Initialized");
-        telemetry.update();
     }
 
     public void rotateFront() {

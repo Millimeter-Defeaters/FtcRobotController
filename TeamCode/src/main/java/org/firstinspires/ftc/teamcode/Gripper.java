@@ -22,9 +22,6 @@ public class Gripper {
         
         this.open();
         this.isClosed = false;
-
-        telemetry.addData("Status", "Gripper Initialized");
-        telemetry.update();
     }
 
     public void open() {
