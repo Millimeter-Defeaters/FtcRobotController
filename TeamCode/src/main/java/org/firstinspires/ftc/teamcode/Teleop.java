@@ -17,7 +17,7 @@ public class TeleOp extends LinearOpMode {
     
     private final double ticksPerRotation = 537.7; // From https://www.gobilda.com/5202-series-yellow-jacket-planetary-gear-motor-19-2-1-ratio-312-rpm-3-3-5v-encoder/
     private final double gearReduction = 1.0; 
-    
+
     private final double wheelDiameter = 3.77953; // From https://www.gobilda.com/96mm-mecanum-wheel-set-70a-durometer-bearing-supported-rollers/. Convert 96 mm diameter to diameter in inches.
 	private final double ticksPerInch = (ticksPerRotation * gearReduction) / (wheelDiameter * Math.PI);
 
@@ -82,8 +82,7 @@ public class TeleOp extends LinearOpMode {
             else if (gamepad1.b) {
                 lift.move(Lift.HIGH);
             }
-
-            if (gamepad1.left_bumper) {
+            else if (gamepad1.left_bumper) {
                 lift.move(Lift.RESET);
             }
         }
